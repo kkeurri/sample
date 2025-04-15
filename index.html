@@ -1,152 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fixed Grid Layout</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+	<meta charset="UTF-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>Crmbs</title>
+    <link rel= "icon" href= "images/ic_coockie.png" type= "image/png"> <!-- Web page icon -->
+  	<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: sans-serif;
-    }
+        body {
+            font-family: sans-serif;
+        }
 
-    header, footer {
-      background-color: #f44336;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      font-weight: bold;
-    }
+        section {
+            width: 100%;
+        }
+        
+        /*HEADER */
+        header {
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        /* SECTION: BRAND OVERVIEW */
+        .brand-overview {
+            background-color: #ffeb3b;
+            height: 100vh;
+        }
+        
+        /* SECTION: KEY FEATURES */
+        .key-features {
+            background-color: #03a9f4;
+            position: relative;
+            overflow: hidden;
+            width: 100vw;
+            height: 50vh;
+            margin: 0;     
+            padding: 0;
+            z-index: 1;
+            background: linear-gradient(135deg, #03a9f4, #ba68c8);
+            clip-path: url(#waveClip);
+            -webkit-clip-path: url(#waveClip);
+        }
+        
+        /* .clipped-box {
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(135deg, #03a9f4, #ba68c8);
+            clip-path: url(#waveClip);
+            -webkit-clip-path: url(#waveClip);
+        } */
 
-    section {
-      width: 100%;
-      height: 25vh;
-    }
+        svg {
+            position: absolute;
 
-    .section-yellow {
-      background-color: #ffeb3b;
-    }
+        }
+        
+        /* SECTION: PRODUCT GALLERY */
+        .product-gallery {
+            background-color: #ba68c8;
+        }
+        
+        /* SECTION: PRODUCT PROMOTION */
+        .product-promotion{
+            background-color: rgb(210, 255, 237) 
+        }
+        .section-grid {
+            background-color: #e0e0e0;
+            display: flex;
+            flex-wrap: nowrap;
+            padding: 1rem;
+            height: auto;
+        }
 
-    .section-blue {
-      background-color: #03a9f4;
-    }
+        .grid-left {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 0.5rem;
+            width: 60%;
+            aspect-ratio: 4 / 3; 
+        }
 
-    .section-blue::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C300,120 600,-20 1440,80 L1440,0 L0,0 Z" fill="%2303a9f4"/></svg>') no-repeat top center;
-      background-size: cover;
-      z-index: -1;
-    }
+        .grid-left > div {
+            background-color: #03a9f4;
+            aspect-ratio: 1 / 1; 
+            width: 100%;
+            border-radius: 4px;
+        }
 
+        .grid-center,
+        .grid-right {
+            background-color: white;
+            margin-left: 1rem;
+            border-radius: 4px;
+        }
 
-    .section-blue::after {     
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 C500,-40 900,140 1440,20 L1440,100 L0,100 Z" fill="%2303a9f4"/></svg>') no-repeat bottom center;
-      background-size: cover;
-      z-index: -1;
-    }
+        .grid-center {
+          flex: 1;
+          aspect-ratio: 3 / 4;
+        }
 
-    .section-purple {
-      background-color: #ba68c8;
-    }
+        .grid-right {
+          flex: 0.5;
+          aspect-ratio: 2 / 3;
+        }
 
-    .section-grid {
-      background-color: #e0e0e0;
-      display: flex;
-      flex-wrap: nowrap;
-      padding: 1rem;
-      height: auto;
-    }
+        @media (max-width: 900px) {
+          .section-grid {
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .grid-left {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 0.5rem;
-      width: 60%;
-      aspect-ratio: 4 / 3; 
-    }
+        .grid-left {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+        }
 
-    .grid-left > div {
-      background-color: #03a9f4;
-      aspect-ratio: 1 / 1; 
-      width: 100%;
-      border-radius: 4px;
-    }
-
-    .grid-center,
-    .grid-right {
-      background-color: white;
-      margin-left: 1rem;
-      border-radius: 4px;
-    }
-
-    .grid-center {
-      flex: 1;
-      aspect-ratio: 3 / 4;
-    }
-
-    .grid-right {
-      flex: 0.5;
-      aspect-ratio: 2 / 3;
-    }
-
-    @media (max-width: 900px) {
-      .section-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .grid-left {
-        width: 100%;
-        aspect-ratio: 4 / 3;
-      }
-
-      .grid-center,
-      .grid-right {
-        width: 80%;
-        aspect-ratio: auto;
-        height: 200px;
-        margin-left: 0;
-        margin-top: 1rem;
-      }
-    }
-  </style>
+          .grid-center,
+          .grid-right {
+            width: 80%;
+            aspect-ratio: auto;
+            height: 200px;
+            margin-left: 0;
+            margin-top: 1rem;
+          }
+        }
+        
+        /* FOOTER */
+        footer {
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
+    <body>
+        <svg>
+            <defs>
+                <clipPath id="waveClip" clipPathUnits="objectBoundingBox">
+                    <path d="
+                        M 0.14 0.5 
+                        Q 0.21 0.25 0.28 0.416 
+                        Q 0.35 0.5 0.42 0.416 
+                        Q 0.5 0.25 0.57 0.416 
+                        C 0.64 0.583 0.64 0.5 0.71 0.416 
+                        Q 0.78 0.333 0.85 0.5 
+                        C 0.92 0.666 1 0.416 1 0.5 
+                        L 1 0.833 
+                        C 1 0.916 0.92 0.916 0.92 0.916 
+                        C 0.78 0.75 0.78 1 0.64 0.916 
+                        C 0.57 0.833 0.5 0.833 0.42 0.916 
+                        C 0.35 0.916 0.35 0.75 0.28 0.833 
+                        C 0.21 0.916 0.21 1 0.14 0.833 
+                        Q 0.14 0.666 0.14 0.5 Z" 
+                    />
+                </clipPath>
+            </defs>
+        </svg>
 
-  <header>HEADER</header>
-
-  <section class="section-yellow"></section>
-  <section class="section-blue"></section>
-  <section class="section-purple"></section>
-
-  <section class="section-grid">
-    <div class="grid-left">
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div>
-    </div>
-    <div class="grid-center"></div>
-    <div class="grid-right"></div>
-  </section>
-
-  <footer>FOOTER</footer>
-
-</body>
+        <!-- HEADER -->
+        <header>
+            <h1>CRMBS</h1>
+        </header>
+        
+        <!-- SECTION: BRAND OVERVIEW -->
+        <section class="brand-overview">
+            
+        </section>
+        
+        <!-- SECTION: KEY FEATURES -->
+        <section class="key-features">
+        </section>
+        
+        <!-- SECTION: PRODUCT GALLERY -->
+        <section class="product-gallery">
+        </section>
+        
+        <!-- SECTION: PRODUCT PROMOTION -->
+        <section class="product-promotion">
+            <div class="grid-left">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            
+                <div class="grid-center"></div>
+            
+                <div class="grid-right"></div>
+        </section>
+        
+        <!-- FOOTER -->
+        <footer>
+        </footer>
+    </body>
 </html>
