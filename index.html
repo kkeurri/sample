@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Registration</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+  <script>
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+
+    function sendWelcomeEmail(email, name) {
+      emailjs.send("service_h4o18xj", "welcome", {
+        to_email: email,
+        to_name: name
+      })
+      .then(() => console.log("Email sent!"))
+      .catch((err) => console.error("Email failed:", err));
+    }
+
+    async function registerUser(e) {
+      e.preventDefault();
+
+      const fname = document.getElementById("fname").value;
+      const lname = document.getElementById("lname").value;
+      const contact = document.getElementById("contact").value;
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm_password").value;
+
+      if (pass !== confirm) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      const response = await fetch("register.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fname, lname, contact, email, password: pass })
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert("Registered successfully!");
+        sendWelcomeEmail(email, fname + " " + lname);
+      } else {
+        alert("Error: " + result.message);
+      }
+    }
+  </script>
+</head>
+<body>
+  <form onsubmit="registerUser(event)">
+    <input type="text" id="fname" placeholder="First Name" required><br>
+    <input type="text" id="lname" placeholder="Last Name" required><br>
+    <input type="text" id="contact" placeholder="Contact Number" required><br>
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <input type="password" id="confirm_password" placeholder="Confirm Password" required><br>
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>
